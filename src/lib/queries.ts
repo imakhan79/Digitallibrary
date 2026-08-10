@@ -30,3 +30,41 @@ export async function getBook(id: string) {
     .maybeSingle();
   return data as unknown as DbBook | null;
 }
+
+export type Author = { id: number; name: string };
+export type Category = { id: number; name: string; resource_type: string };
+
+export async function getAuthors() {
+  const supabase = await createClient();
+  const { data } = await supabase.from("authors").select("id, name").order("name");
+  return (data ?? []) as Author[];
+}
+
+export async function getCategories() {
+  const supabase = await createClient();
+  const { data } = await supabase.from("categories").select("id, name, resource_type").order("name");
+  return (data ?? []) as Category[];
+}
+
+export type EditableBook = {
+  id: number;
+  title: string;
+  author_id: number | null;
+  category_id: number | null;
+  isbn: string | null;
+  description: string | null;
+  cover_url: string | null;
+  language: string | null;
+  published_year: number | null;
+  resource_type: string;
+};
+
+export async function getBookForEdit(id: string) {
+  const supabase = await createClient();
+  const { data } = await supabase
+    .from("books")
+    .select("id, title, author_id, category_id, isbn, description, cover_url, language, published_year, resource_type")
+    .eq("id", id)
+    .maybeSingle();
+  return data as EditableBook | null;
+}

@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { createClient } from "@/lib/supabase/client";
+import { useRouter } from "@/i18n/navigation";
 
 export function BookmarkButton({
   bookId,
@@ -15,6 +16,7 @@ export function BookmarkButton({
   const [bookmarked, setBookmarked] = useState(false);
   const [userId, setUserId] = useState<string | null>(null);
   const supabase = createClient();
+  const router = useRouter();
 
   useEffect(() => {
     supabase.auth.getUser().then(({ data }) => {
@@ -33,7 +35,7 @@ export function BookmarkButton({
 
   async function toggle() {
     if (!userId) {
-      window.location.href = "../../login";
+      router.push("/login");
       return;
     }
     if (bookmarked) {

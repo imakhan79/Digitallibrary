@@ -4,6 +4,7 @@ import Image from "next/image";
 import { collections, discoveryCards } from "@/lib/sample-data";
 import { getBooks } from "@/lib/queries";
 import { SiteHeader } from "@/components/site-header";
+import { Link } from "@/i18n/navigation";
 
 const stats = [
   { key: "resources", value: "1M+" },
@@ -139,7 +140,7 @@ export default async function HomePage() {
         </h2>
         <div className="mt-8 grid grid-cols-2 gap-6 sm:grid-cols-3 md:grid-cols-4">
           {books.map((r) => (
-            <a key={r.id} href={`books/${r.id}`} className="group overflow-hidden rounded-xl border border-border bg-background">
+            <Link key={r.id} href={`/books/${r.id}`} className="group overflow-hidden rounded-xl border border-border bg-background">
               <div className="relative aspect-[3/4] w-full overflow-hidden">
                 {r.cover_url && (
                   <Image src={r.cover_url} alt={r.title} fill className="object-cover transition duration-500 group-hover:scale-105" />
@@ -152,7 +153,7 @@ export default async function HomePage() {
                 <h3 className="truncate font-heading text-sm font-semibold">{r.title}</h3>
                 <p className="truncate text-xs text-muted-foreground">{r.authors?.name} · {r.published_year}</p>
               </div>
-            </a>
+            </Link>
           ))}
         </div>
       </section>

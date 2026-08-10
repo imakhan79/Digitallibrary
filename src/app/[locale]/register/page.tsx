@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
-import { useRouter } from "@/i18n/navigation";
+import { useRouter, Link } from "@/i18n/navigation";
 import { createClient } from "@/lib/supabase/client";
 
 export default function RegisterPage() {
@@ -116,9 +116,9 @@ export default function RegisterPage() {
 
           <p className="mt-6 text-center text-sm text-muted-foreground">
             {t("Auth.haveAccount")}{" "}
-            <a href="../login" className="font-medium text-gold">
+            <Link href="/login" className="font-medium text-gold">
               {t("Auth.signIn")}
-            </a>
+            </Link>
           </p>
         </div>
       </div>

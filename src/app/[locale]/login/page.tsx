@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
-import { useRouter } from "@/i18n/navigation";
+import { useRouter, Link } from "@/i18n/navigation";
 import { createClient } from "@/lib/supabase/client";
 
 export default function LoginPage() {
@@ -94,9 +94,9 @@ export default function LoginPage() {
 
           <p className="mt-6 text-center text-sm text-muted-foreground">
             {t("Auth.noAccount")}{" "}
-            <a href="../register" className="font-medium text-gold">
+            <Link href="/register" className="font-medium text-gold">
               {t("Auth.createAccount")}
-            </a>
+            </Link>
           </p>
         </div>
       </div>
