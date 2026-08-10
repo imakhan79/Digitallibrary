@@ -1,9 +1,9 @@
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 
-const COLLECTION_ROLES = ["super_admin", "library_admin", "content_manager", "metadata_librarian", "librarian"];
+const LIBRARIAN_ROLES = ["super_admin", "library_admin", "librarian"];
 
-export default async function ManageCollectionsLayout({
+export default async function ManageLibrarianLayout({
   children,
   params,
 }: {
@@ -21,7 +21,7 @@ export default async function ManageCollectionsLayout({
     .eq("id", user.id)
     .single();
 
-  if (!profile || !COLLECTION_ROLES.includes(profile.role)) {
+  if (!profile || !LIBRARIAN_ROLES.includes(profile.role)) {
     redirect(`/${locale}`);
   }
 

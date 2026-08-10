@@ -5,9 +5,10 @@ import { Link } from "@/i18n/navigation";
 const SECTIONS = [
   { href: "/manage/books", title: "Books", desc: "Add, edit, and remove catalog resources.", roles: ["super_admin", "library_admin", "content_manager"] },
   { href: "/manage/metadata", title: "Metadata", desc: "Subjects, identifiers, and validation status.", roles: ["super_admin", "library_admin", "content_manager", "metadata_librarian"] },
-  { href: "/manage/collections", title: "Collections", desc: "Curate featured collections.", roles: ["super_admin", "library_admin", "content_manager", "metadata_librarian"] },
+  { href: "/manage/collections", title: "Collections", desc: "Curate featured collections.", roles: ["super_admin", "library_admin", "content_manager", "metadata_librarian", "librarian"] },
   { href: "/manage/digitization", title: "Digitization", desc: "Track resources through the digitization workflow.", roles: ["super_admin", "library_admin", "digitization_manager"] },
-  { href: "/manage/access-requests", title: "Access Requests", desc: "Review institutional access requests.", roles: ["super_admin", "library_admin"] },
+  { href: "/manage/librarian", title: "Librarian Desk", desc: "Recommend resources and resolve content issues.", roles: ["super_admin", "library_admin", "librarian"] },
+  { href: "/manage/access-requests", title: "Access Requests", desc: "Review institutional access requests.", roles: ["super_admin", "library_admin", "librarian"] },
   { href: "/admin", title: "Admin Dashboard", desc: "Platform KPIs and analytics preview.", roles: ["super_admin", "library_admin"] },
 ];
 

@@ -215,6 +215,46 @@ export async function getCollectionBookIds(collectionId: string) {
   return (data ?? []).map((r) => r.book_id as number);
 }
 
+export async function isBookRecommended(bookId: string) {
+  const supabase = await createClient();
+  const { data } = await supabase.from("recommendations").select("book_id").eq("book_id", bookId).maybeSingle();
+  return !!data;
+}
+
+export type FlaggableBook = { id: number; title: string; recommended: boolean };
+
+export async function getBooksForLibrarian() {
+  const supabase = await createClient();
+  const [{ data: books }, { data: recs }] = await Promise.all([
+    supabase.from("books").select("id, title").order("title"),
+    supabase.from("recommendations").select("book_id"),
+  ]);
+  const recommended = new Set((recs ?? []).map((r) => r.book_id as number));
+  return ((books ?? []) as { id: number; title: string }[]).map((b) => ({
+    ...b,
+    recommended: recommended.has(b.id),
+  })) as FlaggableBook[];
+}
+
+export type ContentFlag = {
+  id: number;
+  book_id: number;
+  reason: string;
+  status: string;
+  created_at: string;
+  books: { title: string } | null;
+};
+
+export async function getOpenContentFlags() {
+  const supabase = await createClient();
+  const { data } = await supabase
+    .from("content_flags")
+    .select("id, book_id, reason, status, created_at, books(title)")
+    .eq("status", "open")
+    .order("created_at", { ascending: true });
+  return (data ?? []) as unknown as ContentFlag[];
+}
+
 export type SavedSearch = {
   id: number;
   query: string | null;

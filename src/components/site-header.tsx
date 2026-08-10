@@ -10,6 +10,7 @@ const MANAGE_ROLES = [
   "content_manager",
   "metadata_librarian",
   "digitization_manager",
+  "librarian",
 ];
 
 export async function SiteHeader() {

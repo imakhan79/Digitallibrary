@@ -1,7 +1,7 @@
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 
-const ADMIN_ROLES = ["super_admin", "library_admin"];
+const ADMIN_ROLES = ["super_admin", "library_admin", "librarian"];
 
 export default async function AccessRequestsLayout({
   children,

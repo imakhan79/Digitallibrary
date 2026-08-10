@@ -1,10 +1,11 @@
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
-import { getBook, getAccessRequest, getBookSubjects, getIdentifiers } from "@/lib/queries";
+import { getBook, getAccessRequest, getBookSubjects, getIdentifiers, isBookRecommended } from "@/lib/queries";
 import { BookmarkButton } from "@/components/bookmark-button";
 import { SiteHeader } from "@/components/site-header";
 import { RequestAccessButton } from "@/components/request-access-button";
+import { ReportIssueButton } from "@/components/report-issue-button";
 import { createClient } from "@/lib/supabase/server";
 
 export default async function BookDetailPage({
@@ -23,7 +24,11 @@ export default async function BookDetailPage({
   const accessRequest = user ? await getAccessRequest(id, user.id) : null;
   const isRestricted = book.access_level === "restricted";
   const hasAccess = !isRestricted || accessRequest?.status === "approved";
-  const [subjects, identifiers] = await Promise.all([getBookSubjects(id), getIdentifiers(id)]);
+  const [subjects, identifiers, recommended] = await Promise.all([
+    getBookSubjects(id),
+    getIdentifiers(id),
+    isBookRecommended(id),
+  ]);
 
   return (
     <>
@@ -42,11 +47,18 @@ export default async function BookDetailPage({
             {t("BookDetail.author")}: {book.authors?.name}
           </p>
 
-          {isRestricted && (
-            <span className="mt-3 inline-block rounded-full bg-gold/20 px-3 py-1 text-xs font-semibold text-gold">
-              Restricted — institutional access required
-            </span>
-          )}
+          <div className="mt-3 flex flex-wrap gap-2">
+            {recommended && (
+              <span className="inline-block rounded-full bg-gold/20 px-3 py-1 text-xs font-semibold text-gold">
+                ★ Staff Recommended
+              </span>
+            )}
+            {isRestricted && (
+              <span className="inline-block rounded-full bg-gold/20 px-3 py-1 text-xs font-semibold text-gold">
+                Restricted — institutional access required
+              </span>
+            )}
+          </div>
 
           <div className="mt-6 flex flex-wrap gap-3">
             {hasAccess ? (
@@ -65,6 +77,10 @@ export default async function BookDetailPage({
             <button disabled className="rounded-full border border-border px-5 py-2.5 text-sm text-muted-foreground opacity-60">
               {t("BookDetail.cite")} · {t("BookDetail.comingSoon")}
             </button>
+          </div>
+
+          <div className="mt-4">
+            <ReportIssueButton bookId={book.id} />
           </div>
 
           <h2 className="mt-10 font-heading text-lg font-semibold">{t("BookDetail.description")}</h2>
