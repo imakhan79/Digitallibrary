@@ -59,6 +59,26 @@ export type EditableBook = {
   resource_type: string;
 };
 
+export type DigitizationJob = {
+  id: number;
+  book_id: number;
+  status: string;
+  operator: string | null;
+  priority: string;
+  deadline: string | null;
+  notes: string | null;
+  books: { title: string } | null;
+};
+
+export async function getDigitizationJobs() {
+  const supabase = await createClient();
+  const { data } = await supabase
+    .from("digitization_jobs")
+    .select("id, book_id, status, operator, priority, deadline, notes, books(title)")
+    .order("created_at", { ascending: false });
+  return (data ?? []) as unknown as DigitizationJob[];
+}
+
 export async function getBookForEdit(id: string) {
   const supabase = await createClient();
   const { data } = await supabase

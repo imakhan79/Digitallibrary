@@ -1,6 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
+import { Link } from "@/i18n/navigation";
 import {
   AreaChart,
   Area,
@@ -34,16 +35,6 @@ const kpis = [
   { key: "digitalResources", value: "196,340", trend: "+9.4%" },
   { key: "activeUsers", value: "8,214", trend: "+4.1%" },
   { key: "downloads", value: "1.2M", trend: "+21.6%" },
-];
-
-const kanbanColumns = ["Pending", "Scanning", "OCR", "Metadata", "Quality Control", "Published"];
-const kanbanCards = [
-  { title: "Diwan-e-Ghalib — Vol. II", col: 1 },
-  { title: "Colonial Land Records 1912", col: 0 },
-  { title: "Journal of South Asian Lit.", col: 3 },
-  { title: "Firdaus-i-Tavarikh", col: 2 },
-  { title: "Kulliyat-e-Iqbal", col: 5 },
-  { title: "Muqaddama-e-Sher-o-Shayari", col: 4 },
 ];
 
 export default function AdminPage() {
@@ -98,24 +89,17 @@ export default function AdminPage() {
         </div>
       </div>
 
-      <div className="mt-8">
+      <div className="mt-8 rounded-xl border border-border bg-card p-6">
         <h2 className="font-heading text-lg font-semibold">{t("kanbanTitle")}</h2>
-        <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-3 md:grid-cols-6">
-          {kanbanColumns.map((col, i) => (
-            <div key={col} className="rounded-xl border border-border bg-card p-3">
-              <div className="mb-3 text-xs font-semibold text-muted-foreground">{col}</div>
-              <div className="flex flex-col gap-2">
-                {kanbanCards
-                  .filter((c) => c.col === i)
-                  .map((c) => (
-                    <div key={c.title} className="rounded-lg border border-border bg-background p-2 text-xs">
-                      {c.title}
-                    </div>
-                  ))}
-              </div>
-            </div>
-          ))}
-        </div>
+        <p className="mt-1 text-sm text-muted-foreground">
+          The digitization workflow now runs on real data with a dedicated dashboard.
+        </p>
+        <Link
+          href="/manage/digitization"
+          className="mt-4 inline-block rounded-full bg-navy px-5 py-2.5 text-sm font-semibold text-ivory dark:bg-gold dark:text-midnight"
+        >
+          Open Digitization Workflow →
+        </Link>
       </div>
     </main>
   );
