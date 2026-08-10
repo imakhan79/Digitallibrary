@@ -28,6 +28,7 @@ export function BookForm({
   const [language, setLanguage] = useState(book?.language ?? "");
   const [year, setYear] = useState(book?.published_year ? String(book.published_year) : "");
   const [resourceType, setResourceType] = useState(book?.resource_type ?? "book");
+  const [accessLevel, setAccessLevel] = useState(book?.access_level ?? "public");
   const [authorOptions, setAuthorOptions] = useState(authors);
   const [categoryOptions, setCategoryOptions] = useState(categories);
   const [newAuthor, setNewAuthor] = useState("");
@@ -72,6 +73,7 @@ export function BookForm({
       language: language || null,
       published_year: year ? Number(year) : null,
       resource_type: resourceType,
+      access_level: accessLevel,
     };
 
     const { error } = book
@@ -160,7 +162,7 @@ export function BookForm({
         </div>
       </div>
 
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <div>
           <label className="text-sm font-medium">Resource type</label>
           <select
@@ -171,6 +173,17 @@ export function BookForm({
             {RESOURCE_TYPES.map((rt) => (
               <option key={rt} value={rt}>{rt}</option>
             ))}
+          </select>
+        </div>
+        <div>
+          <label className="text-sm font-medium">Access level</label>
+          <select
+            value={accessLevel}
+            onChange={(e) => setAccessLevel(e.target.value)}
+            className="mt-1 w-full rounded-lg border border-border bg-background px-4 py-2.5"
+          >
+            <option value="public">Public</option>
+            <option value="restricted">Restricted (institutional)</option>
           </select>
         </div>
         <div>

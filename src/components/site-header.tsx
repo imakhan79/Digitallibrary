@@ -34,6 +34,7 @@ export async function SiteHeader() {
           {role && CONTENT_ROLES.includes(role) && <Link href="/manage/books">Manage</Link>}
           {role && DIGITIZATION_ROLES.includes(role) && <Link href="/manage/digitization">Digitization</Link>}
           {role && ADMIN_ROLES.includes(role) && <Link href="/admin">Admin</Link>}
+          {role && ADMIN_ROLES.includes(role) && <Link href="/manage/access-requests">Access Requests</Link>}
         </nav>
         <div className="flex items-center gap-3">
           <ThemeToggle />
