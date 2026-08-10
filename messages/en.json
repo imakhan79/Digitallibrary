@@ -1,0 +1,161 @@
+{
+  "Nav": {
+    "explore": "Explore",
+    "collections": "Collections",
+    "books": "Books",
+    "manuscripts": "Manuscripts",
+    "research": "Research",
+    "login": "Login",
+    "register": "Create Account",
+    "myAccount": "My Account",
+    "signOut": "Sign out"
+  },
+  "Hero": {
+    "eyebrow": "Digital Library World",
+    "headline": "Preserving Knowledge.",
+    "headlineLine2": "Connecting Generations.",
+    "subtitle": "Explore books, manuscripts, journals, research papers, theses, archives and cultural heritage through one intelligent digital library.",
+    "ctaPrimary": "Explore Digital Library",
+    "ctaSecondary": "Discover Collections",
+    "ctaTertiary": "Start Research"
+  },
+  "Search": {
+    "placeholder": "Search books, manuscripts, journals, research papers, theses, archives and more...",
+    "all": "Everything",
+    "books": "Books",
+    "manuscripts": "Manuscripts",
+    "journals": "Journals",
+    "theses": "Theses",
+    "archives": "Archives",
+    "voice": "Voice Search",
+    "ai": "AI Search",
+    "advanced": "Advanced Search",
+    "button": "Search"
+  },
+  "Stats": {
+    "resources": "Digital Resources",
+    "books": "Books & Publications",
+    "research": "Research Materials",
+    "manuscripts": "Manuscripts & Archives",
+    "languages": "Languages",
+    "access": "Knowledge Access"
+  },
+  "Discovery": {
+    "title": "Explore the World of Knowledge",
+    "books": "Books",
+    "booksDesc": "Explore books and rare publications.",
+    "manuscripts": "Manuscripts",
+    "manuscriptsDesc": "Discover historical manuscripts.",
+    "journals": "Journals",
+    "journalsDesc": "Explore academic publications.",
+    "theses": "Theses",
+    "thesesDesc": "Discover scholarly research.",
+    "archives": "Archives",
+    "archivesDesc": "Explore historical records.",
+    "rareBooks": "Rare Books",
+    "rareBooksDesc": "Preserved literary treasures."
+  },
+  "Collections": {
+    "title": "Featured Collections",
+    "explore": "Explore",
+    "resources": "resources"
+  },
+  "Shelf": {
+    "title": "Recently Digitized",
+    "badge": "Digitally Preserved",
+    "view": "View",
+    "read": "Read",
+    "save": "Save"
+  },
+  "RareBook": {
+    "heading": "Treasures That Survived Time",
+    "text": "Discover rare books, historical manuscripts and cultural documents preserved for future generations.",
+    "cta": "Explore Rare Books"
+  },
+  "KnowledgeGraph": {
+    "title": "The World of Knowledge",
+    "subtitle": "A living map of authors, subjects and collections. Select a node to explore its connections.",
+    "center": "Urdu Literature"
+  },
+  "AiSearch": {
+    "title": "Ask the Library",
+    "subtitle": "Turn millions of resources into answers, connections and discoveries.",
+    "placeholder": "Find books discussing the evolution of modern Urdu criticism.",
+    "sources": "Sources Used",
+    "preview": "Preview — illustrative answer, not a live AI response yet",
+    "ask": "Ask"
+  },
+  "Footer": {
+    "tagline": "Preserving the past. Digitizing knowledge. Empowering the future.",
+    "explore": "Explore",
+    "research": "Research",
+    "collections": "Collections",
+    "about": "About",
+    "support": "Support",
+    "newsletter": "Newsletter",
+    "newsletterCta": "Subscribe",
+    "rights": "All rights reserved."
+  },
+  "Auth": {
+    "loginHeading": "Welcome Back",
+    "loginSubheading": "Continue exploring knowledge.",
+    "registerHeading": "Create My Research Account",
+    "registerSubheading": "Join a world of knowledge awaits.",
+    "overlayTitle": "A World of Knowledge Awaits",
+    "overlaySubtitle": "Sign in to continue your research journey.",
+    "email": "Email",
+    "password": "Password",
+    "confirmPassword": "Confirm Password",
+    "fullName": "Full Name",
+    "rememberMe": "Remember me",
+    "forgotPassword": "Forgot password?",
+    "signIn": "Sign In",
+    "createAccount": "Create Account",
+    "haveAccount": "Already have an account?",
+    "noAccount": "Need an account?",
+    "guest": "Continue as Guest",
+    "secure": "Secure Authentication",
+    "encrypted": "Encrypted Connection",
+    "private": "Privacy Protected"
+  },
+  "Books": {
+    "title": "Explore the Catalog",
+    "searchPlaceholder": "Search by title, author or subject",
+    "filterCategory": "Category",
+    "filterLanguage": "Language",
+    "allCategories": "All Categories",
+    "allLanguages": "All Languages",
+    "noResults": "We couldn't find that yet.",
+    "noResultsHint": "Try another keyword or browse collections.",
+    "by": "by"
+  },
+  "BookDetail": {
+    "readOnline": "Read Online",
+    "download": "Download",
+    "cite": "Cite",
+    "bookmark": "Bookmark",
+    "bookmarked": "Bookmarked",
+    "share": "Share",
+    "workspace": "Research Workspace",
+    "comingSoon": "Coming soon",
+    "description": "Description",
+    "metadata": "Metadata",
+    "language": "Language",
+    "published": "Published",
+    "identifier": "Identifier",
+    "category": "Category",
+    "author": "Author"
+  },
+  "Admin": {
+    "previewNote": "Preview data — not connected to live analytics yet",
+    "totalResources": "Total Resources",
+    "digitalResources": "Digital Resources",
+    "activeUsers": "Active Researchers",
+    "downloads": "Downloads",
+    "collectionGrowth": "Collection Growth",
+    "digitizationProgress": "Digitization Progress",
+    "popularSubjects": "Popular Subjects",
+    "languages": "Languages",
+    "kanbanTitle": "Digitization Workflow"
+  }
+}
