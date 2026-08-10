@@ -6,6 +6,21 @@ import { useTranslations } from "next-intl";
 import { useRouter, Link } from "@/i18n/navigation";
 import { createClient } from "@/lib/supabase/client";
 
+const DEMO_PASSWORD = "DemoPass123!";
+const DEMO_ACCOUNTS = [
+  { label: "Super Admin", email: "superadmin@digitallibrary.test" },
+  { label: "Library Admin", email: "libraryadmin@digitallibrary.test" },
+  { label: "Content Manager", email: "contentmanager@digitallibrary.test" },
+  { label: "Digitization Manager", email: "digitizationmanager@digitallibrary.test" },
+  { label: "Metadata Librarian", email: "metadatalibrarian@digitallibrary.test" },
+  { label: "Librarian", email: "librarian@digitallibrary.test" },
+  { label: "Reviewer / QC Officer", email: "reviewerqc@digitallibrary.test" },
+  { label: "Exhibition Curator", email: "exhibitioncurator@digitallibrary.test" },
+  { label: "Contributor", email: "contributor@digitallibrary.test" },
+  { label: "Institutional User", email: "institutionaluser@digitallibrary.test" },
+  { label: "Researcher", email: "researcher@digitallibrary.test" },
+];
+
 export default function LoginPage() {
   const t = useTranslations();
   const router = useRouter();
@@ -13,6 +28,7 @@ export default function LoginPage() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+  const [demoLoading, setDemoLoading] = useState<string | null>(null);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -21,6 +37,19 @@ export default function LoginPage() {
     const supabase = createClient();
     const { error } = await supabase.auth.signInWithPassword({ email, password });
     setLoading(false);
+    if (error) {
+      setError(error.message);
+      return;
+    }
+    router.push("/");
+  }
+
+  async function handleDemoLogin(demoEmail: string) {
+    setError(null);
+    setDemoLoading(demoEmail);
+    const supabase = createClient();
+    const { error } = await supabase.auth.signInWithPassword({ email: demoEmail, password: DEMO_PASSWORD });
+    setDemoLoading(null);
     if (error) {
       setError(error.message);
       return;
@@ -98,6 +127,25 @@ export default function LoginPage() {
               {t("Auth.createAccount")}
             </Link>
           </p>
+
+          <div className="mt-8 border-t border-border pt-6">
+            <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+              Demo accounts — one click per role
+            </p>
+            <div className="mt-3 flex flex-wrap gap-2">
+              {DEMO_ACCOUNTS.map((acc) => (
+                <button
+                  key={acc.email}
+                  type="button"
+                  onClick={() => handleDemoLogin(acc.email)}
+                  disabled={demoLoading !== null}
+                  className="rounded-full border border-border px-3 py-1.5 text-xs font-medium text-muted-foreground hover:border-gold hover:text-gold disabled:opacity-50"
+                >
+                  {demoLoading === acc.email ? "Signing in…" : acc.label}
+                </button>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </main>
