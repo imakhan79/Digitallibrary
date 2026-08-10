@@ -2,12 +2,15 @@ import Image from "next/image";
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { getBooks } from "@/lib/queries";
+import { SiteHeader } from "@/components/site-header";
 
 export default async function BooksPage() {
   const t = await getTranslations();
   const books = await getBooks();
 
   return (
+    <>
+    <SiteHeader />
     <main className="mx-auto max-w-7xl px-6 py-16">
       <h1 className="font-heading text-3xl font-semibold text-navy dark:text-foreground">
         {t("Books.title")}
@@ -55,5 +58,6 @@ export default async function BooksPage() {
         </div>
       )}
     </main>
+    </>
   );
 }

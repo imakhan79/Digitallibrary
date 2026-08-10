@@ -91,7 +91,7 @@ export default function AdminPage() {
                 <XAxis dataKey="name" tick={{ fontSize: 11 }} />
                 <YAxis hide />
                 <Tooltip />
-                <Bar dataKey="value" fill="#0b1b33" radius={[6, 6, 0, 0]} />
+                <Bar dataKey="value" fill="#c9a24b" radius={[6, 6, 0, 0]} />
               </BarChart>
             </ResponsiveContainer>
           </div>

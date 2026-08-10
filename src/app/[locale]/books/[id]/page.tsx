@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import { getBook } from "@/lib/queries";
 import { BookmarkButton } from "@/components/bookmark-button";
+import { SiteHeader } from "@/components/site-header";
 
 export default async function BookDetailPage({
   params,
@@ -16,6 +17,8 @@ export default async function BookDetailPage({
   const t = await getTranslations();
 
   return (
+    <>
+    <SiteHeader />
     <main className="mx-auto max-w-6xl px-6 py-16">
       <div className="grid grid-cols-1 gap-10 md:grid-cols-[320px_1fr]">
         <div className="relative aspect-[3/4] w-full overflow-hidden rounded-2xl border border-border">
@@ -64,5 +67,6 @@ export default async function BookDetailPage({
         </div>
       </div>
     </main>
+    </>
   );
 }
