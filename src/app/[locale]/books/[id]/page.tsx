@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
-import { getBook, getAccessRequest } from "@/lib/queries";
+import { getBook, getAccessRequest, getBookSubjects, getIdentifiers } from "@/lib/queries";
 import { BookmarkButton } from "@/components/bookmark-button";
 import { SiteHeader } from "@/components/site-header";
 import { RequestAccessButton } from "@/components/request-access-button";
@@ -23,6 +23,7 @@ export default async function BookDetailPage({
   const accessRequest = user ? await getAccessRequest(id, user.id) : null;
   const isRestricted = book.access_level === "restricted";
   const hasAccess = !isRestricted || accessRequest?.status === "approved";
+  const [subjects, identifiers] = await Promise.all([getBookSubjects(id), getIdentifiers(id)]);
 
   return (
     <>
@@ -84,6 +85,33 @@ export default async function BookDetailPage({
               <dd>{book.published_year}</dd>
             </div>
           </dl>
+
+          {subjects.length > 0 && (
+            <>
+              <h2 className="mt-8 font-heading text-lg font-semibold">Subjects</h2>
+              <div className="mt-3 flex flex-wrap gap-2">
+                {subjects.map((s) => (
+                  <span key={s.id} className="rounded-full border border-border px-3 py-1 text-xs text-muted-foreground">
+                    {s.name}
+                  </span>
+                ))}
+              </div>
+            </>
+          )}
+
+          {identifiers.length > 0 && (
+            <>
+              <h2 className="mt-8 font-heading text-lg font-semibold">{t("BookDetail.identifier")}</h2>
+              <dl className="mt-3 grid grid-cols-2 gap-3 text-sm sm:grid-cols-3">
+                {identifiers.map((i) => (
+                  <div key={i.id}>
+                    <dt className="text-muted-foreground uppercase">{i.type}</dt>
+                    <dd>{i.value}</dd>
+                  </div>
+                ))}
+              </dl>
+            </>
+          )}
         </div>
       </div>
     </main>

@@ -1,8 +1,8 @@
 import { useTranslations } from "next-intl";
 import { getTranslations } from "next-intl/server";
 import Image from "next/image";
-import { collections, discoveryCards } from "@/lib/sample-data";
-import { getBooks } from "@/lib/queries";
+import { discoveryCards } from "@/lib/sample-data";
+import { getBooks, getCollections, getCollectionResourceCounts } from "@/lib/queries";
 import { SiteHeader } from "@/components/site-header";
 import { Link } from "@/i18n/navigation";
 
@@ -17,7 +17,11 @@ const stats = [
 
 export default async function HomePage() {
   const t = await getTranslations();
-  const books = await getBooks();
+  const [books, collections, collectionCounts] = await Promise.all([
+    getBooks(),
+    getCollections(),
+    getCollectionResourceCounts(),
+  ]);
 
   return (
     <main className="flex flex-col">
@@ -112,15 +116,15 @@ export default async function HomePage() {
           </h2>
           <div className="mt-8 flex gap-6 overflow-x-auto pb-2">
             {collections.map((c) => (
-              <div key={c.title} className="min-w-[280px] flex-1 overflow-hidden rounded-2xl border border-border bg-background">
+              <div key={c.id} className="min-w-[280px] flex-1 overflow-hidden rounded-2xl border border-border bg-background">
                 <div className="relative h-40 w-full">
-                  <Image src={c.image} alt="" fill className="object-cover" />
+                  {c.cover_url && <Image src={c.cover_url} alt="" fill className="object-cover" />}
                 </div>
                 <div className="p-5">
                   <h3 className="font-heading text-lg font-semibold">{c.title}</h3>
                   <p className="mt-1 text-sm text-muted-foreground">{c.description}</p>
                   <div className="mt-3 flex items-center justify-between text-xs text-muted-foreground">
-                    <span>{c.count.toLocaleString()} {t("Collections.resources")}</span>
+                    <span>{(collectionCounts.get(c.id) ?? 0).toLocaleString()} {t("Collections.resources")}</span>
                     <span>{c.language}</span>
                   </div>
                   <a href="#" className="mt-4 inline-block text-sm font-semibold text-gold">

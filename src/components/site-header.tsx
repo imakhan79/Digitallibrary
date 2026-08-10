@@ -4,9 +4,13 @@ import { createClient } from "@/lib/supabase/server";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { SignOutButton } from "@/components/sign-out-button";
 
-const ADMIN_ROLES = ["super_admin", "library_admin"];
-const CONTENT_ROLES = ["super_admin", "library_admin", "content_manager"];
-const DIGITIZATION_ROLES = ["super_admin", "library_admin", "digitization_manager"];
+const MANAGE_ROLES = [
+  "super_admin",
+  "library_admin",
+  "content_manager",
+  "metadata_librarian",
+  "digitization_manager",
+];
 
 export async function SiteHeader() {
   const t = await getTranslations();
@@ -31,10 +35,7 @@ export async function SiteHeader() {
           <Link href="/books">{t("Nav.books")}</Link>
           <a href="#">{t("Nav.manuscripts")}</a>
           <a href="#">{t("Nav.research")}</a>
-          {role && CONTENT_ROLES.includes(role) && <Link href="/manage/books">Manage</Link>}
-          {role && DIGITIZATION_ROLES.includes(role) && <Link href="/manage/digitization">Digitization</Link>}
-          {role && ADMIN_ROLES.includes(role) && <Link href="/admin">Admin</Link>}
-          {role && ADMIN_ROLES.includes(role) && <Link href="/manage/access-requests">Access Requests</Link>}
+          {role && MANAGE_ROLES.includes(role) && <Link href="/manage">Manage</Link>}
         </nav>
         <div className="flex items-center gap-3">
           <ThemeToggle />

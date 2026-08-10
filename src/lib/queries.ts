@@ -71,6 +71,7 @@ export type EditableBook = {
   published_year: number | null;
   resource_type: string;
   access_level: string;
+  metadata_status: string;
 };
 
 export type DigitizationJob = {
@@ -97,7 +98,7 @@ export async function getBookForEdit(id: string) {
   const supabase = await createClient();
   const { data } = await supabase
     .from("books")
-    .select("id, title, author_id, category_id, isbn, description, cover_url, language, published_year, resource_type, access_level")
+    .select("id, title, author_id, category_id, isbn, description, cover_url, language, published_year, resource_type, access_level, metadata_status")
     .eq("id", id)
     .maybeSingle();
   return data as EditableBook | null;
@@ -132,6 +133,86 @@ export async function getPendingAccessRequests() {
     .eq("status", "pending")
     .order("created_at", { ascending: true });
   return (data ?? []) as unknown as AccessRequestRow[];
+}
+
+export type Subject = { id: number; name: string };
+
+export async function getSubjects() {
+  const supabase = await createClient();
+  const { data } = await supabase.from("subjects").select("id, name").order("name");
+  return (data ?? []) as Subject[];
+}
+
+export async function getBookSubjects(bookId: string) {
+  const supabase = await createClient();
+  const { data } = await supabase
+    .from("book_subjects")
+    .select("subject_id, subjects(id, name)")
+    .eq("book_id", bookId);
+  return ((data ?? []) as unknown as { subjects: Subject }[]).map((r) => r.subjects);
+}
+
+export type Identifier = { id: number; type: string; value: string };
+
+export async function getIdentifiers(bookId: string) {
+  const supabase = await createClient();
+  const { data } = await supabase
+    .from("identifiers")
+    .select("id, type, value")
+    .eq("book_id", bookId);
+  return (data ?? []) as Identifier[];
+}
+
+export type MetadataBookRow = {
+  id: number;
+  title: string;
+  metadata_status: string;
+  authors: { name: string } | null;
+};
+
+export async function getBooksForMetadata() {
+  const supabase = await createClient();
+  const { data } = await supabase
+    .from("books")
+    .select("id, title, metadata_status, authors(name)")
+    .order("title");
+  return (data ?? []) as unknown as MetadataBookRow[];
+}
+
+export type Collection = {
+  id: number;
+  title: string;
+  description: string | null;
+  language: string | null;
+  cover_url: string | null;
+};
+
+export async function getCollections() {
+  const supabase = await createClient();
+  const { data } = await supabase
+    .from("collections")
+    .select("id, title, description, language, cover_url")
+    .order("created_at");
+  return (data ?? []) as Collection[];
+}
+
+export async function getCollectionResourceCounts() {
+  const supabase = await createClient();
+  const { data } = await supabase.from("collection_books").select("collection_id");
+  const counts = new Map<number, number>();
+  for (const row of data ?? []) {
+    counts.set(row.collection_id, (counts.get(row.collection_id) ?? 0) + 1);
+  }
+  return counts;
+}
+
+export async function getCollectionBookIds(collectionId: string) {
+  const supabase = await createClient();
+  const { data } = await supabase
+    .from("collection_books")
+    .select("book_id")
+    .eq("collection_id", collectionId);
+  return (data ?? []).map((r) => r.book_id as number);
 }
 
 export type SavedSearch = {
